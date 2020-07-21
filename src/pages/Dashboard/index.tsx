@@ -55,11 +55,64 @@ const Dashboard: React.FC = () => {
       setFiltro(false);
     }
 
+    addPaginacao(listaVeiculos, pesquisa, false, 1);
+  }
+
+  async function addPaginacao(arrayVeiculos: Veiculo[], arrayPesquisa: Veiculo[], tipoFiltro: boolean, numPage: number): Promise<void> {
     const arrayRetorno: Paginacao[] = [];
-    for (let number = 1; number <= 5; number++) {
+    let quatPaginas = 0;
+    let registroInicial = 0;
+    let registroFinal = 0;
+
+    if (tipoFiltro === false) {
+      
+      if (arrayVeiculos.length > 4) {
+        quatPaginas = arrayVeiculos.length % 4;
+        //console.log(quatPaginas);
+
+        if ( quatPaginas > 0 ) {
+          quatPaginas =  (arrayVeiculos.length / 4) + 1;
+        }else {
+          quatPaginas =  arrayVeiculos.length / 4;
+        }
+      } else {
+        quatPaginas = 1;
+      }
+
+    } else {
+      if (arrayPesquisa.length > 4) {
+        quatPaginas = arrayPesquisa.length % 4;
+
+        if ( quatPaginas > 0 ) {
+          quatPaginas =  (arrayPesquisa.length / 4) + 1;
+        }else {
+          quatPaginas =  arrayPesquisa.length / 4;
+        }
+
+      } else {
+        quatPaginas = 1;
+      }
+    }
+    //console.log(quatPaginas);
+
+    
+    for (let number = 1; number <= quatPaginas; number++) {
+
+      registroFinal = (registroInicial + 4) + 1;
+
+      if (number === numPage) {
+        if (tipoFiltro === false) {
+          // Colocar o codigo aqui pegando os dados do array vaiculos
+        }else{
+          // Colocar o codigo aqui pegando os dados do array pesquisa
+        }
+      }
+
       arrayRetorno.push(
         {page: number}
       );
+
+      registroInicial = registroFinal
     }
 
     setItems(arrayRetorno);
