@@ -1,7 +1,7 @@
 // PAGINAÇÃO
 // https://react-bootstrap.github.io/components/pagination/
 
-import React, { useState, useEffect, FormEvent } from 'react';
+import React, { useState, useEffect, FormEvent, ReactElement } from 'react';
 import { FiChevronRight } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
@@ -38,6 +38,7 @@ const Dashboard: React.FC = () => {
 
   const [active1, setActive] = useState(2);
   const [items, setItems] = useState<Paginacao[]>([]);
+  const [veiculosPaginacao, setVeiculosPaginacao] = useState<Veiculo[]>([]);
 
   /*
     Todos os veículos -> veiculos
@@ -63,9 +64,10 @@ const Dashboard: React.FC = () => {
     let quatPaginas = 0;
     let registroInicial = 0;
     let registroFinal = 0;
+    let arrayPaginacao: Veiculo[] = [];
 
     if (tipoFiltro === false) {
-      
+
       if (arrayVeiculos.length > 4) {
         quatPaginas = arrayVeiculos.length % 4;
         //console.log(quatPaginas);
@@ -95,16 +97,17 @@ const Dashboard: React.FC = () => {
     }
     //console.log(quatPaginas);
 
-    
     for (let number = 1; number <= quatPaginas; number++) {
 
-      registroFinal = (registroInicial + 4) + 1;
+      registroFinal = (registroInicial + 4);
 
       if (number === numPage) {
         if (tipoFiltro === false) {
           // Colocar o codigo aqui pegando os dados do array vaiculos
+           arrayPaginacao = arrayVeiculos.slice(registroInicial, registroFinal);
         }else{
           // Colocar o codigo aqui pegando os dados do array pesquisa
+           arrayPaginacao = arrayPesquisa.slice(registroInicial, registroFinal);
         }
       }
 
@@ -115,6 +118,10 @@ const Dashboard: React.FC = () => {
       registroInicial = registroFinal
     }
 
+    //console.log("entrou");
+    //console.log(arrayPaginacao);
+    setActive(numPage);
+    setVeiculosPaginacao(arrayPaginacao);
     setItems(arrayRetorno);
   }
 
@@ -196,6 +203,8 @@ const Dashboard: React.FC = () => {
       console.log(pesquisa.length);
       console.log(pesquisa);
 
+      addPaginacao(veiculos, pesquisa, true, 1);
+
       setPesquisa(pesquisa); // Colocando Repository no final da lista, sem perder os dados que ja tinha nela.
       setNewCar('');
       setInputError('');
@@ -225,7 +234,7 @@ const Dashboard: React.FC = () => {
       { filtro && ( <ButtonLimpar onClick={buscarDados}>Filtrar Todos os Veículos</ButtonLimpar> )}
 
       <Repositories>
-        { filtro === true ?
+        {/* { filtro === true ?
         pesquisa.map((veiculo) => (
           <Link key={veiculo.Codigo} to={`/informacao/${veiculo.Codigo}`}>
             <img
@@ -271,6 +280,30 @@ const Dashboard: React.FC = () => {
           <FiChevronRight size={20} />
         </Link>
       ))
+      } */}
+
+      {
+        veiculosPaginacao.map((veiculo) => (
+          <Link key={veiculo.Codigo} to={`/informacao/${veiculo.Codigo}`}>
+            <img
+              src={`http://upper.noip.me/veiculos/1/${veiculo.Codigo}/imagem1.png`}
+              alt={veiculo.Modelo}
+            />
+
+            <div>
+              <strong>{veiculo.Marca}</strong>
+              <p>{veiculo.Modelo}</p>
+              <p>
+                {Intl.NumberFormat('pt-BR', {
+                  style: 'currency',
+                  currency: 'BRL',
+                }).format(Number(veiculo.PrecoVenda))}
+              </p>
+            </div>
+
+            <FiChevronRight size={20} />
+          </Link>
+        ))
       }
       </Repositories>
 
@@ -278,7 +311,7 @@ const Dashboard: React.FC = () => {
           {
             items.map((item) => (
               // <Pagination.Item key={item.page} active={item.page === active1}>   onClick={}
-              <Pagination.Item key={item.page} active={item.page === active1}>
+              <Pagination.Item key={item.page} active={item.page === active1} onClick={() => addPaginacao(veiculos, pesquisa, filtro, item.page)}>
                 {item.page}
               </Pagination.Item>
             ))
