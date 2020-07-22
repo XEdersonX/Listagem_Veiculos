@@ -1,6 +1,8 @@
 // PAGINAÇÃO
 // https://react-bootstrap.github.io/components/pagination/
 
+// Use CallBack: https://www.it-swarm-pt.tech/pt/reactjs/quando-usar-usecallback-usememo-e-useeffect/811147736/
+
 import React, { useState, useEffect, FormEvent } from 'react';
 import { FiChevronRight } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
