@@ -55,7 +55,7 @@ const Dashboard: React.FC = () => {
       setVeiculos([...listaVeiculos]);
       setFiltro(false);
     }
-
+    console.log(response.data);
     addPaginacao(listaVeiculos, pesquisa, false, 1);
   }
 
@@ -68,27 +68,27 @@ const Dashboard: React.FC = () => {
 
     if (tipoFiltro === false) {
 
-      if (arrayVeiculos.length > 4) {
-        quatPaginas = arrayVeiculos.length % 4;
+      if (arrayVeiculos.length > 10) {
+        quatPaginas = arrayVeiculos.length % 10;
         //console.log(quatPaginas);
 
         if ( quatPaginas > 0 ) {
-          quatPaginas =  (arrayVeiculos.length / 4) + 1;
+          quatPaginas =  (arrayVeiculos.length / 10) + 1;
         }else {
-          quatPaginas =  arrayVeiculos.length / 4;
+          quatPaginas =  arrayVeiculos.length / 10;
         }
       } else {
         quatPaginas = 1;
       }
 
     } else {
-      if (arrayPesquisa.length > 4) {
-        quatPaginas = arrayPesquisa.length % 4;
+      if (arrayPesquisa.length > 10) {
+        quatPaginas = arrayPesquisa.length % 10;
 
         if ( quatPaginas > 0 ) {
-          quatPaginas =  (arrayPesquisa.length / 4) + 1;
+          quatPaginas =  (arrayPesquisa.length / 10) + 1;
         }else {
-          quatPaginas =  arrayPesquisa.length / 4;
+          quatPaginas =  arrayPesquisa.length / 10;
         }
 
       } else {
@@ -99,7 +99,7 @@ const Dashboard: React.FC = () => {
 
     for (let number = 1; number <= quatPaginas; number++) {
 
-      registroFinal = (registroInicial + 4);
+      registroFinal = (registroInicial + 10);
 
       if (number === numPage) {
         if (tipoFiltro === false) {

@@ -19,11 +19,11 @@ import { useRouteMatch, Link } from 'react-router-dom';
 
 import { FiChevronsLeft, FiChevronRight } from 'react-icons/fi'; // Fidericons
 import Carousel from 'react-bootstrap/Carousel';
-import { error } from 'console';
-import { promises } from 'dns';
+//import { error } from 'console';
+//import { promises } from 'dns';
 import total from '../../assets/total.svg';
-import income from '../../assets/income.svg';
-import outcome from '../../assets/outcome.svg';
+//import income from '../../assets/income.svg';
+//import outcome from '../../assets/outcome.svg';
 
 import api from '../../services/api';
 
@@ -157,7 +157,8 @@ const Repository: React.FC = () => {
                 {/* <img src={outcome} alt="Outcome" /> */}
               </header>
               <h1 data-testid="balance-outcome">
-                {dadosVeiculo.Quilometragem}
+              {Intl.NumberFormat('pt-BR').format(Number(dadosVeiculo.Quilometragem))}
+              { /* dadosVeiculo.Quilometragem */} 
               </h1>
             </Card>
             <Card>
