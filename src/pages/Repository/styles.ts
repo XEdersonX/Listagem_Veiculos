@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Carousel from 'react-bootstrap/Carousel';
+// import Carousel from 'react-bootstrap/Carousel';
 
 interface CardProps {
   total?: boolean;

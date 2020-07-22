@@ -1,7 +1,7 @@
 // PAGINAÇÃO
 // https://react-bootstrap.github.io/components/pagination/
 
-import React, { useState, useEffect, FormEvent, ReactElement } from 'react';
+import React, { useState, useEffect, FormEvent } from 'react';
 import { FiChevronRight } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
@@ -123,17 +123,6 @@ const Dashboard: React.FC = () => {
     setActive(numPage);
     setVeiculosPaginacao(arrayPaginacao);
     setItems(arrayRetorno);
-  }
-
-  async function buscarDadosFiltro(): Promise<void> {
-    const response = await api.get<Veiculo[]>('/veiculos.json');
-
-    const listaVeiculos = response.data;
-
-    // Se variavel estiver presente
-    if (response) {
-      setPesquisa([...listaVeiculos]);
-    }
   }
 
   useEffect(() => {

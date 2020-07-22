@@ -17,7 +17,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouteMatch, Link } from 'react-router-dom';
 
-import { FiChevronsLeft, FiChevronRight } from 'react-icons/fi'; // Fidericons
+import { FiChevronsLeft } from 'react-icons/fi'; // Fidericons
 import Carousel from 'react-bootstrap/Carousel';
 //import { error } from 'console';
 //import { promises } from 'dns';
@@ -65,7 +65,7 @@ const Repository: React.FC = () => {
   const [veiculosImagens, setVeiculoImagens] = useState<Imagem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isFoundPhoto, setIsFoundPhoto] = useState(true);
-  let displayFoto = 'none';
+  //let displayFoto = 'none';
 
   const { params } = useRouteMatch<InfoParams>();
 
@@ -99,7 +99,7 @@ const Repository: React.FC = () => {
           setVeiculoImagens(responseImagens);
           // console.log('vai porra')
           setIsLoading(false);
-          displayFoto = 'block';
+          //displayFoto = 'block';
           if (responseImagens.length <= 0) {
             setIsFoundPhoto(false);
           }
@@ -158,7 +158,7 @@ const Repository: React.FC = () => {
               </header>
               <h1 data-testid="balance-outcome">
               {Intl.NumberFormat('pt-BR').format(Number(dadosVeiculo.Quilometragem))}
-              { /* dadosVeiculo.Quilometragem */} 
+              { /* dadosVeiculo.Quilometragem */}
               </h1>
             </Card>
             <Card>
